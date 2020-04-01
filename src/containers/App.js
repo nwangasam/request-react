@@ -4,16 +4,50 @@ import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
-  
-  state = {
-    persons: [
-      { id: 'klxl', name: 'Nwanguma Samuel', age: 22 },
-      { id: 'iwasdf', name: 'Ebuka Spy', age: 19 },
-      { id: 'oiwer', name: 'Chinonso Uwakwe', age: 16 }
-    ],
-    showPersons: false
-  };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      persons: [
+        { id: 'klxl', name: 'Nwanguma Samuel', age: 22 },
+        { id: 'iwasdf', name: 'Ebuka Spy', age: 19 },
+        { id: 'oiwer', name: 'Chinonso Uwakwe', age: 16 }
+      ],
+      showPersons: false
+    };
+    console.log('[App.js] Inside constructor()')
+  }
+  
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount()')
+  }
+  
+  componentDidMount() {
+    console.log('[App.js] Inside componentDidMount()')
+  }
+  // state = {
+  //   persons: [
+  //     { id: 'klxl', name: 'Nwanguma Samuel', age: 22 },
+  //     { id: 'iwasdf', name: 'Ebuka Spy', age: 19 },
+  //     { id: 'oiwer', name: 'Chinonso Uwakwe', age: 16 }
+  //   ],
+  //   showPersons: false
+  // };
+
+  componentWillUpdate (nextProps, nextState) {
+      console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+      console.log('[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState);
+      return nextState.persons !== this.state.persons || 
+      nextState.showPersons !== this.state.showPersons;
+  }
+
+  componentDidUpdate () {
+      console.log('[UPDATE App.js] Inside componentDidUpdate')
+  }
+  
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
@@ -24,9 +58,7 @@ class App extends Component {
     const personIndex = persons.findIndex(p => {
       return p.id === personId;
     });
-
     persons.splice(personIndex, 1);
-
     this.setState({ persons: persons });
   };
 
@@ -41,19 +73,27 @@ class App extends Component {
     this.setState({ persons });
   };
 
+  
   render() {
+    console.log('[App.js] Inside render()');
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = <Persons
+          persons={this.state.persons} 
+          clicked={this.deletePersonHander}
+          changed={this.nameChangeHandler} />
+    }
     return (
         <div className={classes.App}>
+          <button onClick={() => this.setState({ showPersons: true })}>Show Persons</button>
         <Cockpit 
           appTitle={this.props.title}
           toggle={this.togglePersonsHandler}
           persons={this.state.persons}
           showPersons={this.state.showPersons} />
-        <Persons
-            showPersons={this.state.showPersons}
-            persons={this.state.persons} 
-            clicked={this.deletePersonHander}
-            changed={this.nameChangeHandler} />
+        {persons}
       </div>
     );
   }

@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Person.css'
 
-const person = props => {
+class Person extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log('[Person.js] Inside constructor()')
+  }
   
-   return (
-    <div className={classes.Card}>
+  componentWillMount() {
+    console.log('[Person.js] Inside componentWillMount()')
+  }
+  
+  componentDidMount() {
+    console.log('[Person.js] Inside componentDidMount()')
+  }
+  
+  
+  render() {
+    console.log('[Person.js] Inside render()')
+    
+    return <div className={classes.Card}>
       <p>
-        I'm <strong>{props.name}</strong> and I am <strong>{props.age}</strong>{' '}
+        I'm <strong>{this.props.name}</strong> and I am <strong>{this.props.age}</strong>{' '}
         years old
       </p>
-      <p>{props.children}</p>
-      <input onChange={props.changed} className={classes.NameInput} type='text' value={props.name} />
-      <div className={classes.Delete} onClick={props.clicked}>
+      <p>{this.props.children}</p>
+      <input onChange={this.props.changed} className={classes.NameInput} type='text' value={this.props.name} />
+      <div className={classes.Delete} onClick={this.props.clicked}>
         <span>&times;</span>
       </div>
     </div>
-  );
-};
+  }
+}
 
-export default person;
+export default Person;

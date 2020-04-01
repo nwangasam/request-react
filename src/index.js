@@ -5,9 +5,7 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App title="These are Relevant persons!" />
-  </React.StrictMode>,
+  <App title="These are Relevant persons!" />,
   document.getElementById('root')
 );
 

@@ -22,7 +22,7 @@ const Cockpit = props => {
     );
   } else {
     subHeading = (
-      <p clasName={classes.Red}>No person left :( Refresh this page.</p>
+      <p className={classes.Red}>No person left :( Refresh this page.</p>
     );
   }
 
