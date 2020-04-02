@@ -11,7 +11,7 @@
     font-weight: bold;
   }
   
-  .Cockpit button {
+  .Button {
         background-color: green;
         padding: 12px 18px;
         color: #fff;
@@ -23,7 +23,7 @@
         outline: none;
   }
   
-  .Cockpit button:hover {
+  .Button:hover {
     background: lightgreen;
     color: #fff;
   }

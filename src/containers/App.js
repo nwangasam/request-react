@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Persons from '../components/Persons/Persons';
 import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
 
 class App extends Component {
 
@@ -13,7 +15,8 @@ class App extends Component {
         { id: 'iwasdf', name: 'Ebuka Spy', age: 19 },
         { id: 'oiwer', name: 'Chinonso Uwakwe', age: 16 }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0
     };
     console.log('[App.js] Inside constructor()')
   }
@@ -50,9 +53,12 @@ class App extends Component {
   
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({ showPersons: !doesShow });
-  };
-
+    this.setState((prevState, props) => ({
+      showPersons: !doesShow,
+      toggleClicked: prevState.toggleClicked + 1
+    }))
+  }
+  
   deletePersonHander = personId => {
     const persons = [...this.state.persons];
     const personIndex = persons.findIndex(p => {
@@ -86,7 +92,7 @@ class App extends Component {
           changed={this.nameChangeHandler} />
     }
     return (
-        <div className={classes.App}>
+        <Aux>
           <button onClick={() => this.setState({ showPersons: true })}>Show Persons</button>
         <Cockpit 
           appTitle={this.props.title}
@@ -94,9 +100,9 @@ class App extends Component {
           persons={this.state.persons}
           showPersons={this.state.showPersons} />
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

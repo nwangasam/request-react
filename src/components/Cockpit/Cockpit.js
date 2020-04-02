@@ -1,15 +1,16 @@
 import React from 'react';
 import classes from './Cockpit.css';
+import Aux from '../../hoc/Aux';
 
 const Cockpit = props => {
   let subHeading;
-  let btnClasses = '';
+  let btnClasses = classes.Button;
   const assignedClasses = [];
 
   if (props.persons.length <= 2) assignedClasses.push(classes.Red);
   if (props.persons.length <= 1) assignedClasses.push(classes.Bold);
   if (props.showPersons) {
-      btnClasses = classes.Red;
+      btnClasses = [classes.Red, classes.Button].join(' ');
   }
   if (props.persons.length > 0) {
     subHeading = (
@@ -27,13 +28,13 @@ const Cockpit = props => {
   }
 
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
       {/* <h1>Welcome, <br /> to my React app</h1> */}
       <h1>{props.appTitle}</h1>
       {subHeading}
       <button className={btnClasses} onClick={props.toggle}>
         Toggle Persons</button>
-    </div>
+    </Aux>
   );
 };
 
