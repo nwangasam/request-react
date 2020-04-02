@@ -36,8 +36,9 @@ class Persons extends Component {
     
     render() {
         console.log('[Persons.js] Inside render()')
-            return this.props.persons.map(person => {
+            return this.props.persons.map((person, index) => {
                 return <Person
+                position={index}
                 key={person.id}
                 clicked={() => this.props.clicked(person.id)}
                 changed={event => this.props.changed(event, person.id)}
