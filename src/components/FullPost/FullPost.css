@@ -1,0 +1,15 @@
+.FullPost {
+    background: rgb(207, 159, 82);
+    padding: 4vmin 4vmin 6vmin;
+    margin: 24px auto;
+    font-size: 1.4rem;
+}
+
+.Delete {
+    padding: 16px 32px;
+    border: none;
+    text-align: center;
+    color: #fff;
+    margin-top: 24px;
+    background: rgb(230, 42, 42);
+}
