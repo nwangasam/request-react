@@ -21,7 +21,8 @@
 
 .Logo {
     height: 11%;
-    margin-bottom: 32px;
+    margin-left: -8px;
+    margin-bottom: 8px;
 }
 
 @media (min-width: 500px) {
