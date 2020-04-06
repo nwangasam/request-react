@@ -5,6 +5,10 @@
     font-size: 1.4rem;
 }
 
+.FullPost p {
+    line-height: 1.7;
+}
+
 .Delete {
     padding: 16px 32px;
     border: none;
@@ -12,4 +16,8 @@
     color: #fff;
     margin-top: 24px;
     background: rgb(230, 42, 42);
+}
+
+.Description {
+    font-size: .8em;
 }

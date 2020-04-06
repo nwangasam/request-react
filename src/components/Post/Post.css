@@ -5,5 +5,11 @@
     background-image: linear-gradient(to bottom right, rgb(28, 61, 77), rgb(9, 83, 117));
     color: #fff;
     text-align: center;
+    cursor: pointer;
+    transition: all .3s ease-out;
+}
 
+.Post:hover {
+    opacity: .95;
+    transform: translateY(4px) scale(1.03);
 }

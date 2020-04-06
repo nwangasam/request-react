@@ -10,32 +10,48 @@ import axios from 'axios';
 class Blog extends Component {
   state = {
     posts: [],
+    selectedPostId: null
   };
 
   componentDidMount() {
-    axios.get('http://newsapi.org/v2/everything?q=bitcoin&from=2020-03-05&sortBy=publishedAt&apiKey=b7974a8453a74accbc4d01d2579a83bf').then((response) => {
-      const filteredPosts = response.data.articles.slice(0, 4);
-    //   const updatedPosts = filteredPosts.map((post) => {
-    //     return { ...post, author: 'Nwangasam S.' };
-    //   });
-    //   this.setState({ posts: updatedPosts });
-      this.setState({ posts: filteredPosts });
-    })
-    .catch(err => {
+    axios
+      .get(
+        'http://newsapi.org/v2/everything?q=coronavirus&from=2020-03-05&sortBy=publishedAt&apiKey=b7974a8453a74accbc4d01d2579a83bf'
+      )
+      .then((response) => {
+          console.log("Sending Request to server...")
+        const filteredPosts = response.data.articles.slice(0, 4);
+          const updatedPosts = filteredPosts.map((post, i) => {
+            return { ...post, id:  Math.random() + i }
+          });
+          this.setState({ posts: updatedPosts });
+      })
+      .catch((err) => {
         console.log(err);
-    })
+      });
   }
 
+  selectedPostHandler = (id) => {
+      this.setState({ selectedPostId: id })
+  };
+
   render() {
-    const posts = this.state.posts.map((post) => {
-      return <Post key={post.id} title={post.title} author={post.author} />;
+    const posts = this.state.posts.map((post, i) => {
+      return (
+        <Post
+          key={i}
+          title={post.title}
+          author={post.author}
+          clicked={() => this.selectedPostHandler(post.title)}
+        />
+      );
     });
 
     return (
       <div className={classes.Blog}>
         <section className={classes.Posts}>{posts}</section>
         <section>
-          <FullPost />
+          <FullPost postId={this.state.selectedPostId} />
         </section>
         <section>
           <NewPost />
