@@ -1,60 +1,54 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import classes from './Blog.css';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
-
-import classes from './Blog.css';
-import axios from 'axios';
 
 class Blog extends Component {
+
   state = {
     posts: [],
     selectedPostId: null
-  };
+  }
 
-  componentDidMount() {
-    axios
-      .get(
-        'http://newsapi.org/v2/everything?q=coronavirus&from=2020-03-05&sortBy=publishedAt&apiKey=b7974a8453a74accbc4d01d2579a83bf'
-      )
-      .then((response) => {
-          console.log("Sending Request to server...")
-        const filteredPosts = response.data.articles.slice(0, 4);
-          const updatedPosts = filteredPosts.map((post, i) => {
-            return { ...post, id:  Math.random() + i }
-          });
-          this.setState({ posts: updatedPosts });
+  componentDidMount () {
+    axios.get('http://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        const posts = response.data.splice(0, 4);
+        const updatedPosts = posts.map(post => {
+          return {...post, author: "Nwanguma S."}
+        })
+        this.setState({ posts: updatedPosts })
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => { console.log(err) })
   }
 
   selectedPostHandler = (id) => {
-      this.setState({ selectedPostId: id })
-  };
+    this.setState({ selectedPostId: id })
+  }
 
-  render() {
-    const posts = this.state.posts.map((post, i) => {
-      return (
-        <Post
-          key={i}
-          title={post.title}
-          author={post.author}
-          clicked={() => this.selectedPostHandler(post.title)}
-        />
-      );
-    });
+  render () {
 
+    const posts = this.state.posts.map(post => {
+      return <Post 
+                key={post.title} 
+                title={post.title} 
+                author={post.author} 
+                clicked={() => this.selectedPostHandler(post.id)}/>
+    })
+    
     return (
       <div className={classes.Blog}>
-        <section className={classes.Posts}>{posts}</section>
         <section>
-          <FullPost postId={this.state.selectedPostId} />
+          <div className={classes.Posts}>{posts}</div>
         </section>
         <section>
-          <NewPost />
+          <FullPost id={this.state.selectedPostId} />
+        </section>
+        <section>
+          NEW POST
         </section>
       </div>
     );

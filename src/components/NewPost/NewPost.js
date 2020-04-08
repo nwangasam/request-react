@@ -1,37 +1,55 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import classes from './NewPost.css';
 
 class NewPost extends Component {
-    render () {
-        return (
-            <div className={classes.NewPost}>
-                <h1>Add a Post</h1>
-                <form>
-                    <div className={classes.Field}>
-                        <label htmlFor="title">Title</label>
-                        <input type="text" name="title" />
-                    </div>
 
-                    <div className={classes.Field}>
-                        <label htmlFor="content">Content</label>
-                        <textarea></textarea>
-                    </div>
-
-                    <div className={classes.Field}>
-                        <label htmlFor="author">Author</label>
-                        <select name="author">
-                            <option>Chidera</option>
-                            <option>Sammy</option>
-                            <option>Andrei</option>
-                        </select>
-                    </div>
-
-                    <input type="submit" value="Add Post" />
-                </form>
-            </div>
-        );
+    state = {
+        title: "",
+        content: "",
+        author: "Nwanguma S."
     }
+    
+    postDataHandler = () => {
+        const post = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        };
+        axios.get('http://jsonplaceholder.typicode/posts', post)
+        .then(response => {
+            console.log(response.data);
+        })
+    }
+    
+  render() {
+    return (
+      <div className={classes.NewPost}>
+        <h1>Add a post</h1>
+        <div className={classes.Field}>
+          <label>Title</label>
+          <input type='text' value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} />
+        </div>
+        <div className={classes.Field}>
+          <label>Content</label>
+          <textarea
+            row='4'
+            value={this.state.content}
+            onChange={(e) => this.setState({ content: e.target.value })}
+          ></textarea>
+        </div>
+        <div className={classes.Field}>
+          <label>Author</label>
+          <select value={this.state.author} onChange={(e) => this.setState({ author: e.target.value })}>
+            <option value='Sammy'>Sammy</option>
+            <option value='Paul'>Paul</option>
+          </select>
+        </div>
+        <button onClick={this.postDataHandler}>Add Post</button>
+      </div>
+    );
+  }
 }
 
 export default NewPost;
