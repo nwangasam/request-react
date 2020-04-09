@@ -5,12 +5,14 @@ import classes from './Blog.css';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
+import NewPost from '../../components/NewPost/NewPost';
 
 class Blog extends Component {
 
   state = {
     posts: [],
-    selectedPostId: null
+    selectedPostId: null,
+    error: false
   }
 
   componentDidMount () {
@@ -30,7 +32,11 @@ class Blog extends Component {
   }
 
   render () {
+    let posts = <p style={{ textAlign: 'center'; color: 'red' }}></p>
 
+    if (!this.state.error) {
+      
+    }
     const posts = this.state.posts.map(post => {
       return <Post 
                 key={post.title} 
@@ -48,7 +54,7 @@ class Blog extends Component {
           <FullPost id={this.state.selectedPostId} />
         </section>
         <section>
-          NEW POST
+          <NewPost />
         </section>
       </div>
     );

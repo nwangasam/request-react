@@ -19,18 +19,13 @@
     margin-left: 16px;
 }
 
-.NewPost form {
-    max-width: 600px;
-    margin: 40px auto;
-}
-
 .Field {
     margin-bottom: 32px;
     display: flex;
     justify-content: space-between;
 }
 
-.NewPost input[type=submit] {
+.NewPost button {
     padding: 16px 32px;
     background: yellowgreen;
     color: #000;
